@@ -1,0 +1,14 @@
+title The user creates a new note using the single page version of the app.
+
+note over browser:
+The note is added to the 
+list on the page using the 
+redrawNotes function
+end note
+browser->server: HTTP POST /new_note_spa
+note over server:
+The note is validated.
+If its not valid, status 400
+is sent.
+end note
+server-->browser: Status 201 {message: 'note created'}

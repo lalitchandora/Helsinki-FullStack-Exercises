@@ -1,0 +1,17 @@
+title The user visits the SPA notes app
+
+browser->server: HTTP GET /spa
+server-->browser: HTML code for spa
+browser->server: HTTP GET /main.css
+server-->browser: main.css
+browser->server: HTTP GET /spa.js
+server-->browser: main.js
+note over browser:
+browser executes js code that 
+requests a JSON data from server
+end note
+browser->server: HTTP GET /data.json
+server-->browser: JSON data
+note over browser:
+notes data is displayed
+end note
