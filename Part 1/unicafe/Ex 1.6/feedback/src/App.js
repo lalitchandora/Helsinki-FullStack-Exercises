@@ -10,6 +10,7 @@ const App = () => {
   const [bad, setBad] = useState(0)
 
   const giveFeedback = (type) => {
+    console.log(type);
     switch (type) {
       case 'good':
         setGood(good + 1);
@@ -31,14 +32,11 @@ const App = () => {
       <Button type='good' clickHandler={giveFeedback} />
       <Button type='neutral' clickHandler={giveFeedback} />
       <Button type='bad' clickHandler={giveFeedback} />
-      {(good==0 || neutral === 0 || bad === 0) ?
+      {(good===0 && neutral === 0 && bad === 0) ?
       <h6>No feedback given</h6>
       : 
       <>
         <h1>Statistics</h1>
-        <h6>Good: {good}</h6>
-        <h6>Neutral: {neutral}</h6>
-        <h6>Bad: {bad}</h6>
         <Stats good={good} bad={bad} neutral={neutral} />
       </>
       }
