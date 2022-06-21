@@ -28,14 +28,20 @@ const App = () => {
   return (
     <div>
       <h1>Give Feedback</h1>
-      <Button type='good' clickHandler={giveFeedback}/>
-      <Button type='neutral' clickHandler={giveFeedback}/>
-      <Button type='bad' clickHandler={giveFeedback}/>
-      <h1>Statistics</h1>
-      <h6>Good: {good}</h6>
-      <h6>Neutral: {neutral}</h6>
-      <h6>Bad: {bad}</h6>
-      <Stats good={good} bad={bad} neutral={neutral} />
+      <Button type='good' clickHandler={giveFeedback} />
+      <Button type='neutral' clickHandler={giveFeedback} />
+      <Button type='bad' clickHandler={giveFeedback} />
+      {(good==0 || neutral === 0 || bad === 0) ?
+      <h6>No feedback given</h6>
+      : 
+      <>
+        <h1>Statistics</h1>
+        <h6>Good: {good}</h6>
+        <h6>Neutral: {neutral}</h6>
+        <h6>Bad: {bad}</h6>
+        <Stats good={good} bad={bad} neutral={neutral} />
+      </>
+      }
     </div>
   )
 }
