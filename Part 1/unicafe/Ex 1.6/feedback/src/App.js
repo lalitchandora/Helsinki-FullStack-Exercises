@@ -10,7 +10,6 @@ const App = () => {
   const [bad, setBad] = useState(0)
 
   const giveFeedback = (type) => {
-    console.log(type);
     switch (type) {
       case 'good':
         setGood(good + 1);
