@@ -9,14 +9,21 @@ const App = () => {
     'Premature optimization is the root of all evil.',
     'Debugging is twice as hard as writing the code in the first place. Therefore, if you write the code as cleverly as possible, you are, by definition, not smart enough to debug it.',
     'Programming without an extremely heavy use of console.log is same as if a doctor would refuse to use x-rays or blood tests when diagnosing patients.'
-  ]
+  ];
+  
    
   const [selected, setSelected] = useState(0)
-
+  const [voteArr, setVoteArr] = useState(new Array(anecdotes.length).fill(0));
   const changeAnecdote = (event) => {
     let index = selected + 1;
     if (selected >= anecdotes.length-1) index = 0;
     setSelected(index);
+  }
+
+  const voteHandler = (event) => {
+    let tempVoteArr = [...voteArr];
+    tempVoteArr[selected] += 1;
+    setVoteArr(tempVoteArr);
   }
 
   return (
@@ -24,7 +31,14 @@ const App = () => {
       <p>
         {anecdotes[selected]}
       </p>
+      <p>
+        {voteArr[selected]} votes!
+      </p>
+      <p>
+
+      </p>
       <button onClick={changeAnecdote}>Get Next Anecdote</button>
+      <button onClick={voteHandler}>Vote Anecdote</button>
     </div>
   )
 }
