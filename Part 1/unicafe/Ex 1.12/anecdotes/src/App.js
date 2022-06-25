@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 const App = () => {
   const anecdotes = [
@@ -14,20 +14,42 @@ const App = () => {
    
   const [selected, setSelected] = useState(0)
   const [voteArr, setVoteArr] = useState(new Array(anecdotes.length).fill(0));
+  const [highestVotedIndex, setHighIndex] = useState(-1);
+
   const changeAnecdote = (event) => {
     let index = selected + 1;
     if (selected >= anecdotes.length-1) index = 0;
     setSelected(index);
   }
 
-  const voteHandler = (event) => {
-    let tempVoteArr = [...voteArr];
-    tempVoteArr[selected] += 1;
-    setVoteArr(tempVoteArr);
+  const voteHandler = async (event) => {
+    setVoteArr((oldArr) => {
+      return oldArr.map((item, j) => {
+        return j === selected ? item + 1 : item
+      });
+    });
   }
+
+  useEffect(() => {
+    const getHighestVoted = () => {
+      let tempVoteArr = [...voteArr];
+      let highestVal = 0;
+      let highestInd = -1;
+      tempVoteArr.forEach((item, index) => {
+        if (item > highestVal){
+          highestVal = item;
+          highestInd = index;
+        }
+      });
+      setHighIndex(highestInd);
+    }
+    getHighestVoted();
+  }, [voteArr]);
+  
 
   return (
     <div>
+      <h1>Anecdote of the day</h1>
       <p>
         {anecdotes[selected]}
       </p>
@@ -39,6 +61,19 @@ const App = () => {
       </p>
       <button onClick={changeAnecdote}>Get Next Anecdote</button>
       <button onClick={voteHandler}>Vote Anecdote</button>
+      
+      {
+        (highestVotedIndex !== -1) ?
+          <>
+            <h1>Anecdote with most votes</h1>
+            <p>
+              {anecdotes[highestVotedIndex]}
+            </p>
+          </>
+          
+        :
+          <></>
+      }
     </div>
   )
 }
